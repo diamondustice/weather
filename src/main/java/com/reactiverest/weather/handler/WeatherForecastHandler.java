@@ -19,7 +19,11 @@ public class WeatherForecastHandler {
 
     public Mono<ServerResponse> getWeatherToday(ServerRequest request) {
 
-        Mono<WeatherDto> weatherToday = weatherForecastService.getWeatherForecastToday();
+        String office = request.pathVariable("office");
+        String gridX = request.pathVariable("gridX");
+        String gridY = request.pathVariable("gridY");
+
+        Mono<WeatherDto> weatherToday = weatherForecastService.getWeatherForecastToday(office, gridX, gridY);
         return ServerResponse.ok()
                 .contentType(MediaType.TEXT_EVENT_STREAM)
                 .body(weatherToday, WeatherDto.class);

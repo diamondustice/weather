@@ -63,7 +63,7 @@ class WeatherForecastServiceTest {
                 .addHeader("Content-Type", "application/json"));
 
         Mono<WeatherDto> weatherDtoMono = client
-                .getWeatherForecastToday();
+                .getWeatherForecastToday("MLB", "33", "70");
 
         StepVerifier.create(weatherDtoMono)
                 .expectNextMatches(weatherDto ->

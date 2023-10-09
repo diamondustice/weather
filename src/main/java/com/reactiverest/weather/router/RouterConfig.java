@@ -23,7 +23,7 @@ public class RouterConfig {
     @Bean
     public RouterFunction<ServerResponse> routerFunction() {
         return RouterFunctions.route()
-                .GET("/weather/forecast/day", weatherForecastHandler::getWeatherToday)
+                .GET("/gridpoints/{office}/{gridX},{gridY}/forecast", weatherForecastHandler::getWeatherToday)
                 .build();
 
     }

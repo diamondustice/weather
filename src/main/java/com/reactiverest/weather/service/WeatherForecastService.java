@@ -24,10 +24,10 @@ public class WeatherForecastService {
         this.webClient = WebClient.create(baseUrl);
     }
 
-    public Mono<WeatherDto> getWeatherForecastToday() {
+    public Mono<WeatherDto> getWeatherForecastToday(String office, String gridX, String gridY) {
 
         return webClient.get()
-                .uri(uriBuilder -> uriBuilder.path("/gridpoints/MLB/33,70/forecast").build())
+                .uri(uriBuilder -> uriBuilder.path("/gridpoints/"+office+"/"+gridX+","+gridY+"/forecast").build())
                 .retrieve()
                 .bodyToMono(Weather.class)
                 .flatMapMany(weather -> Flux.fromIterable(weather.getProperties().getPeriods()))
