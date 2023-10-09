@@ -8,15 +8,13 @@ import java.time.ZonedDateTime;
 
 public class AppUtils {
 
-    public static boolean isToday(Period day) {
+    public static boolean isPeriodToday(Period day) {
 
        LocalDate date = ZonedDateTime
                 .parse(day.getStartTime())
                 .toLocalDate();
 
-       boolean isDayTime = Boolean.parseBoolean(day.getIsDaytime());
-
-       return isDayTime && date.isEqual(LocalDate.now());
+       return date.isEqual(LocalDate.now());
     }
 
     public static WeatherDay dayToDto(Period day) {

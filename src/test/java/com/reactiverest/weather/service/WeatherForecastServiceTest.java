@@ -66,8 +66,11 @@ class WeatherForecastServiceTest {
                 .getWeatherForecastToday();
 
         StepVerifier.create(weatherDtoMono)
-                .expectNextMatches(weatherDto -> weatherDto.getDaily().get(0).getDay_name()
-                        .equals("Columbus Day"))
+                .expectNextMatches(weatherDto ->
+                    (weatherDto.getDaily().get(0).getDay_name().equals("Today - Day") &&
+                        weatherDto.getDaily().get(1).getDay_name().equals("Today - Night") &&
+                        weatherDto.getDaily().get(2).getDay_name().equals("Today - Overnight")) &&
+                        weatherDto.getDaily().size() == 3 )
                 .verifyComplete();
 
         // Want to make sure that the MockWebServer was sent the correct HttpRequest.
@@ -85,11 +88,12 @@ class WeatherForecastServiceTest {
 
         Properties properties = new Properties();
         properties.setPeriods(List.of(
-                new Period(1, "Evening", "70", "F", "Cloudy", "false", "2023-10-09T06:00:00-04:00", "2023-10-09T18:00:00-04:00"),
-                new Period(2, "Columbus Day", "71", "F", "Rainy", "true", dateToday+"T06:00:00-04:00", dateToday+"T18:00:00-04:00"),
-                new Period(3, "Columbus Day double", "71", "F", "Rainy", "true", dateToday+"T06:00:00-04:00", dateToday+"T18:00:00-04:00"),
-                new Period(4, "Tuesday", "72", "F", "Sunny", "false", "2023-10-09T06:00:00-04:00", "2023-10-09T18:00:00-04:00"),
-                new Period(5, "Evening", "73", "F", "Mostly Cloudy", "false", "2023-10-09T06:00:00-04:00", "2023-10-09T18:00:00-04:00")
+                new Period(1, "Today - Day", "70", "F", "Cloudy", "false", dateToday+"T06:00:00-04:00", dateToday+"T18:00:00-04:00"),
+                new Period(2, "Today - Night", "71", "F", "Rainy", "true", dateToday+"T06:00:00-04:00", dateToday+"T18:00:00-04:00"),
+                new Period(3, "Today - Overnight", "71", "F", "Rainy", "true", dateToday+"T06:00:00-04:00", dateToday+"T18:00:00-04:00"),
+                new Period(4, "Next Day - Day", "72", "F", "Sunny", "false", "2023-10-01T06:00:00-04:00", "2023-10-09T18:00:00-04:00"),
+                new Period(5, "Next Day - Night", "73", "F", "Mostly Cloudy", "false", "2023-10-01T06:00:00-04:00", "2023-10-09T18:00:00-04:00"),
+                new Period(6, "Next Day - Overnight", "73", "F", "Mostly Cloudy", "false", "2023-10-01T06:00:00-04:00", "2023-10-09T18:00:00-04:00")
         ));
         return properties;
     }
