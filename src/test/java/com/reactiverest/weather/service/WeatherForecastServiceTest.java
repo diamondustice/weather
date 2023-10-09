@@ -53,7 +53,7 @@ class WeatherForecastServiceTest {
     }
 
     @Test
-    void whenGetWeatherForecastToday_thenReturnOnlyDaytimeForecast() throws Exception {
+    void whenGetWeatherForecastToday_thenReturnAllPeriodForTodayForecast() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
 
         Weather mockWeather = new Weather(getProperties());
